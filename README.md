@@ -26,6 +26,7 @@ This project was developed with the following technologies:
 - [ReactJS](https://reactjs.org/)
 - [StyledComponents](https://styled-components.com)
 - [GoogleFonts](https://fonts.google.com)
+- [Coolors.co](https://coolors.co)
 
 <br>
 
