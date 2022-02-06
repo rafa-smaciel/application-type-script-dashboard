@@ -24,6 +24,8 @@ This project was developed with the following technologies:
 
 - [TypeScript](https://www.typescriptlang.org/docs/)
 - [ReactJS](https://reactjs.org/)
+- [StyledComponents](https://styled-components.com)
+- [GoogleFonts](https://fonts.google.com)
 
 <br>
 
