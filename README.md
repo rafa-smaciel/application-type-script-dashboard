@@ -1,7 +1,7 @@
 <h1 align="center">
   <img alt="" title="typescript fundamentals" src=".github/demostration_aplication.png" width="320px" />
   <br>
-  Dashboard TypeScript 
+  Dashboard React TypeScript 
 </h1>
 
 
