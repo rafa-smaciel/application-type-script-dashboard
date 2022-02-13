@@ -27,6 +27,7 @@ This project was developed with the following technologies:
 - [StyledComponents](https://styled-components.com)
 - [GoogleFonts](https://fonts.google.com)
 - [Coolors.co](https://coolors.co)
+- [Emoji](https://www.w3schools.com/charsets/ref_emoji_smileys.asp)
 
 <br>
 
