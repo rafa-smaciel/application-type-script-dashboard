@@ -29,6 +29,7 @@ This project was developed with the following technologies:
 - [Coolors.co](https://coolors.co)
 - [Emoji](https://www.w3schools.com/charsets/ref_emoji_smileys.asp)
 - [React-Switch](https://www.npmjs.com/package/react-switch)
+- [React-Icons](https://github.com/react-icons/react-icons)
 
 <br>
 
