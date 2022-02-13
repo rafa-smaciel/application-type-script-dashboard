@@ -28,14 +28,12 @@ This project was developed with the following technologies:
 - [GoogleFonts](https://fonts.google.com)
 - [Coolors.co](https://coolors.co)
 - [Emoji](https://www.w3schools.com/charsets/ref_emoji_smileys.asp)
+- [React-Switch](https://www.npmjs.com/package/react-switch)
 
 <br>
 
 ## ⚙ Commands Running
 - yarn
 - yarn start
-
-## ⚙ Documentation
-- <a href=".github/Documentation.pdf">PDF</a>
 
 Made with 💜 by Rafael Maciel
