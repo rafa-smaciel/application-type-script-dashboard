@@ -1,15 +1,11 @@
 import styled from 'styled-components';
 
-interface IContentHeaderProps {
-    color: string;
-}
-
 interface ITagProps {
     color: string;
 }
 
-export const Container = styled.li<IContentHeaderProps>`
-    background-color: ${props => props.color};
+export const Container = styled.li`
+    background-color: ${props => props.theme.colors.tertiary};
 
     list-style: none; //Para tirar a bolinha do List
     border-radius: 5px;
