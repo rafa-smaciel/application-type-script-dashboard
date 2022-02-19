@@ -5,7 +5,9 @@ import SelectInput from '../../components/SelectInput';
 import HistoryFinanceCard from '../../components/HistoryFinanceCard';
 
 import gains from '../../repositories/gains';
-import expenses from '../../repositories/expenses'
+import expenses from '../../repositories/expenses';
+import formatCurrency from '../../utils/formatCurrency';
+import formatDate from '../../utils/formatDate'; //Após a importação eu coloco essa variavel no useEffect para formatar a data.
 
 import{ Container, Content, Filters } from './styles';
 
@@ -62,10 +64,10 @@ const List: React.FC<IRouteParams> = ({ match }) => { //No caso do return, dentr
         return {
         id: String(Math.random() * data.length), //Para criar um ID para o map abaixo, vou usar uma função do java script chamada math.random. Eu vu pedir pra ele criar pra mim um numero aleatório dentro da numeração do tamanho da nossa lista. Se alista tiver 49 itens, o random vai criar 49 id's. 
         description: item.description,
-        amountFormatted: item.amount,
+        amountFormatted: formatCurrency(Number(item.amount)),
         frequency: item.frequency,
-        dateFormatted: item.date,
-        tagColor: item.frequency === 'recorrente' ? '#4E41F0' : '#E44C4E'
+        dateFormatted: formatDate(item.date), // Conforme arquivo formatDate.ts;
+        tagColor: item.frequency === 'recorrente' ? '#4E41F0' : '#E44C4E',
         }
         })
     setData(response);        
