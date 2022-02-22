@@ -58,11 +58,17 @@ const List: React.FC<IRouteParams> = ({ match }) => { //No caso do return, dentr
         {value: 5, label: 'Maio'},
         {value: 7, label: 'Julho'},
     ]
-    const years = [
-        {value: 2019, label: 2019},
-        {value: 2018, label: 2018},
-        {value: 2020, label: 2020},
-    ]
+    // const years = [
+    //     {value: 2019, label: 2019},
+    //     {value: 2018, label: 2018},
+    //     {value: 2020, label: 2020},
+    // ]
+
+    const year = useMemo(() => { //25. Carregando os meses e anos dinamicamente: Vou comentar o year pois vou usar o mesmo  nome pra fazer o nosso memo. useMemo, pois queremos decorar esses valores; como são valores que não irão mudar tanto, com uma frequencia grande, então usamos o useMemo pra ele decorar esses valores para nós; no casso essa listagem de anos. Vou criar uma variavel auxiliar que vou chamar de uniqueYears, porque se eu não usar ele e puxar os anos, ele vai me trazer um monte de 2020; eu quero ir controlando os anos que são unicos; então eu digo que o uniqueYears vai ser um vetor numerico; uma lista de números "number[]"; e por enquanto, inicialmente, ele vai ser uma lista vazia []. Depois eu vou pegar meu lsitData e vou percorrer cada item dele; aqui vou usar o forEach, porque eu não vou devolver uma lista pra ninguem, agora eu vou guardando os nueros unicos ali dentro, por isso eu vou usar o forEach. Vou passar dentro do forEach o item, poderia colocar como year, porem pode conflitar pelo fato de eu ja estar usando esse nome acima. Depois eu vou pegar a data, como agente ja esta acostumado; com uma const date, com um new Date do item.date; só que agora só me interessa o ano; observação, se eu tivesse usado o year la em cima, ja teria dado errado na const year do lsitData. Então dentro dessa constante, eu tenho o ano de cada registro. Depois eu lanço um if (if(!uniqueYears.includes(year))), para verificar se dentro desse array o ano esta incluso; se esta incluido dentro da lista.
+        let uniqueYears = number[] = [];
+
+        listData.forEach
+    },[]);
 
     useEffect(() => {
         //Muito parecido com o useMemo, porém com a diferença que ele é disparado toda a vez que atela é carregada.

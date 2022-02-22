@@ -6,7 +6,7 @@
 
 
 <h3 align="justify">
-Application with dashboard developed typescript.
+Application with dashboard developed react with typescript.
 </h3>
 <br>
 
