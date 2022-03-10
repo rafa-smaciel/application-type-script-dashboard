@@ -1,4 +1,5 @@
-import React, {useMemo, useState, useEffect} from 'react'
+import React, {useMemo, useState, useEffect} from 'react';
+import { uuid } from 'uuidv4';
 
 import ContentHeader from '../../components/ContentHeader';
 import SelectInput from '../../components/SelectInput';
@@ -8,6 +9,7 @@ import gains from '../../repositories/gains';
 import expenses from '../../repositories/expenses';
 import formatCurrency from '../../utils/formatCurrency';
 import formatDate from '../../utils/formatDate'; //Após a importação eu coloco essa variavel no useEffect para formatar a data.
+import listOfMonths from '../../utils/months';
 
 import{ Container, Content, Filters } from './styles';
 
@@ -51,23 +53,35 @@ const List: React.FC<IRouteParams> = ({ match }) => { //No caso do return, dentr
     const listData = useMemo(() => { 
         return type === 'entry-balance' ? gains : expenses; //Operador Ternário
     },[type]);
-    
+        
+    const years = useMemo(() => { //25. Carregando os meses e anos dinamicamente: Vou comentar o year pois vou usar o mesmo  nome pra fazer o nosso memo. useMemo, pois queremos decorar esses valores; como são valores que não irão mudar tanto, com uma frequencia grande, então usamos o useMemo pra ele decorar esses valores para nós; no casso essa listagem de anos. Vou criar uma variavel auxiliar que vou chamar de uniqueYears, porque se eu não usar ele e puxar os anos, ele vai me trazer um monte de 2020; eu quero ir controlando os anos que são unicos; então eu digo que o uniqueYears vai ser um vetor numerico; uma lista de números "number[]"; e por enquanto, inicialmente, ele vai ser uma lista vazia []. Depois eu vou pegar meu lsitData e vou percorrer cada item dele; aqui vou usar o forEach, porque eu não vou devolver uma lista pra ninguem, agora eu vou guardando os nueros unicos ali dentro, por isso eu vou usar o forEach. Vou passar dentro do forEach o item, poderia colocar como year, porem pode conflitar pelo fato de eu ja estar usando esse nome acima. Depois eu vou pegar a data, como agente ja esta acostumado; com uma const date, com um new Date do item.date; só que agora só me interessa o ano; observação, se eu tivesse usado o year la em cima, ja teria dado errado na const year do lsitData. Então dentro dessa constante, eu tenho o ano de cada registro. Depois eu lanço um if (if(!uniqueYears.includes(year))), para verificar se dentro desse array o ano esta incluso; se esta incluido dentro da lista. Se caso não existir, eu to negando; ou seja com o "!". Portanto se ele não esta incluida na lista eu passo dentro um push, adicionando o ano na lista. Portanto, na primeira vez ele vai adicionar o ano através do let uniqueYears pois estará vazia. Na segunda vez que o forEach girar ele vai verificar que tem um ano, então ele não vai entrar dentro do if, e não vai adicionar numeros; isso impede de termos dumeros duplicados la. 
+        let uniqueYears: number[] = [];
 
-    const months = [
-        {value: 1, label: 'Janeiro'},
-        {value: 5, label: 'Maio'},
-        {value: 7, label: 'Julho'},
-    ]
-    // const years = [
-    //     {value: 2019, label: 2019},
-    //     {value: 2018, label: 2018},
-    //     {value: 2020, label: 2020},
-    // ]
+        listData.forEach(item => {
+            const date = new Date(item.date);
+            const year = date.getFullYear();
 
-    const year = useMemo(() => { //25. Carregando os meses e anos dinamicamente: Vou comentar o year pois vou usar o mesmo  nome pra fazer o nosso memo. useMemo, pois queremos decorar esses valores; como são valores que não irão mudar tanto, com uma frequencia grande, então usamos o useMemo pra ele decorar esses valores para nós; no casso essa listagem de anos. Vou criar uma variavel auxiliar que vou chamar de uniqueYears, porque se eu não usar ele e puxar os anos, ele vai me trazer um monte de 2020; eu quero ir controlando os anos que são unicos; então eu digo que o uniqueYears vai ser um vetor numerico; uma lista de números "number[]"; e por enquanto, inicialmente, ele vai ser uma lista vazia []. Depois eu vou pegar meu lsitData e vou percorrer cada item dele; aqui vou usar o forEach, porque eu não vou devolver uma lista pra ninguem, agora eu vou guardando os nueros unicos ali dentro, por isso eu vou usar o forEach. Vou passar dentro do forEach o item, poderia colocar como year, porem pode conflitar pelo fato de eu ja estar usando esse nome acima. Depois eu vou pegar a data, como agente ja esta acostumado; com uma const date, com um new Date do item.date; só que agora só me interessa o ano; observação, se eu tivesse usado o year la em cima, ja teria dado errado na const year do lsitData. Então dentro dessa constante, eu tenho o ano de cada registro. Depois eu lanço um if (if(!uniqueYears.includes(year))), para verificar se dentro desse array o ano esta incluso; se esta incluido dentro da lista.
-        let uniqueYears = number[] = [];
+            if(!uniqueYears.includes(year)){
+                uniqueYears.push(year)
+            }
+        });
+    //Do lado de fora irei retornar os meus valores. Ele tem que retornar no formato similar ao Json. Então eu pego o uniqueYears, faço um .map para retornar um novo objeto formatado. A ideia de usar o mapa é devido ao fato dele retornar uma nova lista. Vou passar o year, ja que o year existe somente nesse escopo, desse mapa. Retorno dentro do map um value, que vai ser um year e um label que será um year também.
+        return uniqueYears.map(year => {
+            return{
+                value: year,
+                label: year,
+            }
+        });
+    },[listData]);
 
-        listData.forEach
+    const months = useMemo(() => {
+        //Após criar o arquivo months.ts com a lista de meses e importar para dentro do projeto, vou retornar da minha lista de meses um map, onde passarei os mes(valor, tipo janeiro, fevereiro...) e o index é o numero respectivo a cada item da lista, iniciando do zero. Dentro do map, retorno o value e o label. No value vai ser o index + 1 e o label vai ser o conteudo mesmo, o month.
+        return listOfMonths.map((month, index) => {
+            return {
+                value: index + 1,
+                label: month,
+            }
+        });
     },[]);
 
     useEffect(() => {
@@ -85,7 +99,7 @@ const List: React.FC<IRouteParams> = ({ match }) => { //No caso do return, dentr
         //Agora eu tenho que percorrer ele para formatar;
         const formattedData = filteredData.map(item => { 
             return {
-                id: String(new Date().getTime()) + item.amount, //Para gerar numeros diferentes com o (new Date().getTime() + item.amount); uma combinação de dois itens para gerar ID's diferentes. //String(Math.random() * data.length), era assim. Para criar um ID para o map abaixo, vou usar uma função do java script chamada math.random. Eu vu pedir pra ele criar pra mim um numero aleatório dentro da numeração do tamanho da nossa lista. Se alista tiver 49 itens, o random vai criar 49 id's. 
+                id: uuid(), //Para simplificar, vamos usar a biblioteca uuid para gerar um id unico com mais efetividade// //String(new Date().getTime()) + item.amount, Para gerar numeros diferentes com o (new Date().getTime() + item.amount); uma combinação de dois itens para gerar ID's diferentes. //String(Math.random() * data.length), era assim. Para criar um ID para o map abaixo, vou usar uma função do java script chamada math.random. Eu vu pedir pra ele criar pra mim um numero aleatório dentro da numeração do tamanho da nossa lista. Se alista tiver 49 itens, o random vai criar 49 id's. 
                 description: item.description,
                 amountFormatted: formatCurrency(Number(item.amount)),
                 frequency: item.frequency,
