@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
 `;
-export const Content = styled.div`
+export const Content = styled.main`
 `;
 export const Filters = styled.div`
     width: 100%; //irá ocupar 100% da largura da tela;
@@ -18,9 +18,9 @@ export const Filters = styled.div`
 
         margin: 0 10px; //para ele se afatar um do outro;
 
-        transition: opacity -3s;
         opacity: .4;//Para executar o passo 27, adicionei a caracteristica de opacity .4, assim por enquanto, ambos ficam opacos. 
-
+        transition: opacity -3s;
+        
         :hover{
             opacity: .7;
         }
