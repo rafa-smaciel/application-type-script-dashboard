@@ -19,6 +19,7 @@ export const Filters = styled.div`
         margin: 0 10px; //para ele se afatar um do outro;
 
         transition: opacity -3s;
+        opacity: .4;//Para executar o passo 27, adicionei a caracteristica de opacity .4, assim por enquanto, ambos ficam opacos. 
 
         :hover{
             opacity: .7;
@@ -30,13 +31,16 @@ export const Filters = styled.div`
             display: block;
             width: 55px;
             margin: 0 auto;
-            border-bottom: 10px solid ${props => props.theme.colors.warning};
+            border-bottom: 10px solid ${props => props.theme.colors.sucess};
     }
         .tag-filter-eventual::after {
             content: '';
             display: block;
             width: 55px;
             margin: 0 auto;
-            border-bottom: 10px solid ${props => props.theme.colors.sucess};
+            border-bottom: 10px solid ${props => props.theme.colors.warning};
     }
+        .tag-actived{
+            opacity: 1;
+        }
 `;

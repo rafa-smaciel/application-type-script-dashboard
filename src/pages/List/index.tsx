@@ -38,6 +38,8 @@ const List: React.FC<IRouteParams> = ({ match }) => { //No caso do return, dentr
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [yearSelected, setYearSelected] = useState<string>(String(new Date().getFullYear())); //Nesse estado eu guardo o ano selecionado no filtro. //(String(new Date().getFullYear())), serve para que toda a vez que iniciarmos a lista ele mostre o ano atual.
 
+    const [selectedFrequency, setSelectedFrequency] = useState(['recorrente', 'eventual']); //Para o useEffect do handleFrequency, deve-se criar um novo estado para armazenar a frequencia. Portanto; eu estou dizendo que o nosso estado, selectedFrequecy, ele vai começar com um verto, um array, com os dois filtros de frequencia habilitados. Recorrente e Eventual.
+
     const { type } = match.params;
 
     const title = useMemo(() => { //Use memo memoriza valores. Trata-se de uma função anonima; na hora que bate no useMemo, ele ja vai disparar o conteudo da função automáticamente. Entre as chaves é o que agente quer fazer e colchete agente pode colocar um parametro, ou seja, agente pode definir assim: -Eu quero que esse cara atualize sempre quando tal coisa mudar". No nosso caso, vamos colocar a mudança da rota no url. Então quando a rota mudar, eu vou querer que mude o title do ContentHeader. Ainda sobre os colchetes vazios, o que agente colocar nele de constante ou varivel, se mudar, vai gerar uma nova renderização do title, graças ao useMemo; que fica escutando se o um determinado valor mudou.
@@ -84,6 +86,17 @@ const List: React.FC<IRouteParams> = ({ match }) => { //No caso do return, dentr
         });
     },[]);
 
+    const handleFrequencyClick = (frequency: string) => {
+        const alreadySelected = selectedFrequency.findIndex(item => item === frequency) //Eu quero saber se quando o usuario clicar em uma determinado estado, se ele ja esta selecionado ou não. Ou seja, explicando a const. Quando o usuario clicar, por exemplo em recorrentes, dentro dos parenteses estará o recorrente; eu quero encontrar o index em que o item seja igual a frequencia. 
+        if(alreadySelected >= 0){
+            const filtered = selectedFrequency.filter(item => item !== frequency);//Para executar a funcionalidade de filtro do recorrente ou eventual, eu vou criar uma constante que eu vu chamar de filtered que será igual ao selectedFrequency, e depois eu vou filtra, por isso ".filter", ou seja, irei filtrar, fazer um filtro. Dentro desse filtro, eu vou percorrer as frequencias que vou chamar de item; portanto, em sintexe eu vou pegar minha coleção que tera todo os filtro la e ai eu estou filtrando ela. Eu vou pedir para ela retornar todos os filtros que estam guardados la, menos esse que existe; ou seja, se o usuario clicar, se o filtro ja existir, é pq ele ta quenrendo desmarcar ele. 
+            setSelectedFrequency(filtered); //Eu mando la pra dentro somente o que o usuario escolheu manter filtrado.
+        }else{
+            setSelectedFrequency((prev) => [...prev, frequency]); //Entre colchetes para entender que é uma lista. Continuando a lógica acima, com o else; caso o filtro ele não existe ainda é pq o usuario ainda esta clicando nele para que de fato ele seja filtrado. Inserindo uma prev com arrow funtion, eu consigo recuperar o estado anterior, para manter ele; então vou pegar o estado anterior, vou manter o que estiver selecionado la; então eu estou pegando do estado anterior "prev" e espalhando aqui dentro através do "...prev" e junto com os filtros anteriores eu quero adicionar o filtro frequency que o usuario esta adicionando.
+        }
+    }
+
+
     useEffect(() => {
         //Muito parecido com o useMemo, porém com a diferença que ele é disparado toda a vez que atela é carregada.
         const filteredData = listData.filter(item => { //Vou fazer um map no listData. E para cada item eu vou devolver com o return e vou copiar o formato que ele esta esperando do interface, conforme abaixo:
@@ -93,7 +106,7 @@ const List: React.FC<IRouteParams> = ({ match }) => { //No caso do return, dentr
             const month = String(date.getMonth() + 1); //Para facilitar, vou deixar separado; //Para igualar com o retorno da função month === monthSelected, vou converter esse dado em string;
             const year = String(date.getFullYear()); //Para igualar com o retorno da função year === yearSelected, vou converter esse dado em string;
 
-            return month === monthSelected && year === yearSelected; //ou seja, eu vou retornar as tarefas que possuem o mês igual ao mês slecionado, e o ano selecionado.
+            return month === monthSelected && year === yearSelected && selectedFrequency.includes(item.frequency); //ou seja, eu vou retornar as tarefas que possuem o mês igual ao mês slecionado, e o ano selecionado.
         }); //Portanto primeiro eu filtrei pelo mês e ano.
 
         //Agora eu tenho que percorrer ele para formatar;
@@ -107,8 +120,8 @@ const List: React.FC<IRouteParams> = ({ match }) => { //No caso do return, dentr
                 tagColor: item.frequency === 'recorrente' ? '#4E41F0' : '#E44C4E',
             }
         })
-    setData(formattedData); //Portanto depois eu pego e devolvo os valores formatados.        
-    },[listData, monthSelected, yearSelected, data.length]);//Se não colocarmos nada nos colchetes, ele é disparado somente 1 vez. Se colocarmos uma constante ou variavel nos colchetes, ele sempre vai recarregar/renderizar se o valor que agente colocar nos colchetes mudar.
+        setData(formattedData); //Portanto depois eu pego e devolvo os valores formatados.        
+    },[listData, monthSelected, yearSelected, data.length, selectedFrequency]);//Se não colocarmos nada nos colchetes, ele é disparado somente 1 vez. Se colocarmos uma constante ou variavel nos colchetes, ele sempre vai recarregar/renderizar se o valor que agente colocar nos colchetes mudar.
 
 
     //DefaultValue no return do SelectInput, faz parte da lógica de que quando eu recarregar a pagina, ele sempre mostre o valor doano padrão.
@@ -122,14 +135,18 @@ const List: React.FC<IRouteParams> = ({ match }) => { //No caso do return, dentr
 
             <Filters>
                 <button 
-                type="button"
-                className="tag-filter tag-filter-recurrent"
+                    type="button"
+                    className={`tag-filter tag-filter-recurrent
+                    ${selectedFrequency.includes('recorrente') && 'tag-actived'}`}//Para melhorar o visual no momento de realizar o filtro clicando nos botões, vamos inserir um efeito de destacar o clicar e apagar o oposto. Assim, incluiremos uma classe baseado numa condição. Através da interpolação de string. Sobre a condição, apo´s o $, eu vou pegar a minha coleção do selectedFrequency, vou querer saber se la dentro esta incluso (includes) o recorrente. Se o recorrente esta la dentro da minha coleção de frequencia de filtro, quer dizer que ele esta sendo filtrado por recorrencia; e se isso for verdade eu vou acrescentar uma classe/tag chamada de tag-actived. 
+                    onClick={() => handleFrequencyClick('recorrente')} //Quando eu clicar nesse botão, de recorrente, então eu vou chamar a nossa função que vou criar agora, que vai ser a função handleFrequencyClick, e depois vou passar para o parametro recorrente.
                 >
                     Recorrentes
                 </button>
                 <button 
-                type="button"
-                className="tag-filter tag-filter-eventual"
+                    type="button"
+                    className={`tag-filter tag-filter-eventual
+                    ${selectedFrequency.includes('eventual') && 'tag-actived'}`}
+                    onClick={() => handleFrequencyClick('eventual')} //Com o eventual a mesma coisa da nota acima, com a mudança de passar o eventual como parametro.
                 >
                     Eventuais
                 </button>
