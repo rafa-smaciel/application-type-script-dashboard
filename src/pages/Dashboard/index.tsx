@@ -2,12 +2,16 @@ import React, {useState, useMemo} from 'react'
 
 import ContentHeader from '../../components/ContentHeader';
 import SelectInput from '../../components/SelectInput';
+import WalletBox from '../../components/WalletBox'; //31. Creating wallet movement cards
 
 import expenses from '../../repositories/expenses';
 import gains from '../../repositories/gains';
 import listOfMonths from '../../utils/months'; //30. Creating the dashboard content header
 
-import { Container } from './styles';
+import { 
+    Container,
+    Content,
+ } from './styles';
 
 const Dashboard: React.FC = () => {
 
@@ -79,7 +83,31 @@ const Dashboard: React.FC = () => {
                 <SelectInput options={months} onChange={(e) => handleMonthSelected(e.target.value)} defaultValue={monthSelected}/>
                 <SelectInput options={years} onChange={(e) => handleYearSelected(e.target.value)} defaultValue={yearSelected}/> 
             </ContentHeader>
+        <Content>
+            <WalletBox
+                title="saldo"
+                color="#4E41F0"
+                amount={150.00}
+                footerlabel="atualizado com base nas entradas e saídas"
+                icon="dolar"
+            />
+            <WalletBox
+                title="entradas"
+                color="#F7931B"
+                amount={5000.00}
+                footerlabel="atualizado com base nas entradas e saídas"
+                icon="arrowUp"
+            />
+            <WalletBox
+                title="saídas"
+                color="#E44C4E"
+                amount={485.00}
+                footerlabel="atualizado com base nas entradas e saídas"
+                icon="arrowDown"
+            />
+            </Content>
         </Container>
+
     );
 }
 

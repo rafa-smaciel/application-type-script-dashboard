@@ -32,6 +32,7 @@ This project was developed with the following technologies:
 - [React-Icons](https://github.com/react-icons/react-icons)
 - [React-Router-Dom](https:/npmjs.com/package/react-router-dom)
 - [uuidv4](https://yarnpkg.com/package/uuidv4)
+= [React-Countup](https://npmjs.com/package/react-countup)
 
 <br>
 
