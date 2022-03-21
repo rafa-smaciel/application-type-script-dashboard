@@ -59,11 +59,10 @@ const List: React.FC<IRouteParams> = ({ match }) => { //No caso do return, dentr
     // },[movimentType]);
 
     const pageData = useMemo(() => {
-
         return movimentType === 'entry-balance' ?
             {
                 title: 'Entradas',
-                lineColor: '#F7931B',
+                lineColor: '#4E41F0', //30. Creating the dashboard content header
                 data: gains
             }
             :
