@@ -1,12 +1,15 @@
 import React, {useState, useMemo} from 'react'
 
 import ContentHeader from '../../components/ContentHeader';
+import MessageBox from '../../components/MensageBox'; //32. Creating the Wallet Status Card
 import SelectInput from '../../components/SelectInput';
 import WalletBox from '../../components/WalletBox'; //31. Creating wallet movement cards
 
 import expenses from '../../repositories/expenses';
 import gains from '../../repositories/gains';
 import listOfMonths from '../../utils/months'; //30. Creating the dashboard content header
+
+import happyImg from '../../assets/happy.svg' // 32. Creating the Wallet Status Card
 
 import { 
     Container,
@@ -76,7 +79,7 @@ const Dashboard: React.FC = () => {
     }
 
     // 30. Creating the dashboard content header
-    
+    // 32. Creating the Wallet Status Card <messageBox/>
     return (
         <Container>
             <ContentHeader title="Dashboard" lineColor="#fff">
@@ -104,6 +107,12 @@ const Dashboard: React.FC = () => {
                 amount={485.00}
                 footerlabel="atualizado com base nas entradas e saídas"
                 icon="arrowDown"
+            />
+            <MessageBox
+                title="Muito bem"
+                description="Sua carteira está positiva"
+                footerText="Continue assim. Considere investir o seu saldo."
+                icon={happyImg}
             />
             </Content>
         </Container>
