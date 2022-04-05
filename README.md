@@ -34,6 +34,7 @@ This project was developed with the following technologies:
 - [uuidv4](https://yarnpkg.com/package/uuidv4)
 - [React-Countup](https://npmjs.com/package/react-countup)
 - [FlatIcon](https://www.flaticon.com/br/icones)
+- [Recharts](https://recharts.org/en-US/)
 
 <br>
 

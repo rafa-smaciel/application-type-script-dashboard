@@ -2,6 +2,7 @@ import React, {useState, useMemo} from 'react'
 
 import ContentHeader from '../../components/ContentHeader';
 import MessageBox from '../../components/MensageBox'; //32. Creating the Wallet Status Card
+import PieChart from '../../components/PieChart'; //34. Creating the Pie Chart Look
 import SelectInput from '../../components/SelectInput';
 import WalletBox from '../../components/WalletBox'; //31. Creating wallet movement cards
 
@@ -11,7 +12,6 @@ import listOfMonths from '../../utils/months'; //30. Creating the dashboard cont
 
 import happyImg from '../../assets/happy.svg' // 32. Creating the Wallet Status Card
 import sadImg from '../../assets/sad.svg' //33. Leaving cards with dynamic information
-import grinningImg from '../../assets/grinning.svg' //33. Leaving cards with dynamic information
 
 import { 
     Container,
@@ -22,13 +22,6 @@ const Dashboard: React.FC = () => {
 
     const [monthSelected, setMonthSelected] = useState<number>(new Date().getMonth() + 1); //30. Creating the dashboard content header
     const [yearSelected, setYearSelected] = useState<number>(new Date().getFullYear()); //30. Creating the dashboard content header
-
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const options = [
-        {value: 'Rafael', label: 'Rafael'},
-        {value: 'Ana', label: 'Ana'},
-        {value: 'Fulano', label: 'Fulano'},
-    ]
 
     const years = useMemo(() => { //30. Creating the dashboard content header
         let uniqueYears: number[] = [];
@@ -118,7 +111,7 @@ const Dashboard: React.FC = () => {
                 title:"Ufaa!",
                 description:"Neste mês, você gastou exaamente o que ganhou.",
                 footerText:"Tenha cuidado. No próximo mês, tente poupar o seu dinheiro.",
-                icon: grinningImg
+                icon: sadImg
             }
         }else{
             return {
@@ -187,6 +180,8 @@ const Dashboard: React.FC = () => {
                 footerText={message.footerText}
                 icon={message.icon}
             />
+
+            <PieChart/>
             </Content>
         </Container>
 
