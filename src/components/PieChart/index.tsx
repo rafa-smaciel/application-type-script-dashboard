@@ -1,10 +1,10 @@
 import React from 'react'; //34. Creating the Pie Chart Look
-import {
+//import {
     // PieChart,
     // Pie,
     // Cell,
-    // ResponsiveContainer
-} from 'recharts'; //34. Creating the Pie Chart Look
+    //ResponsiveContainer
+// } from 'recharts'; //34. Creating the Pie Chart Look
 
 import { 
     Container,
@@ -17,8 +17,25 @@ import {
 const PieChart: React.FC = () => ( //34. Creating the Pie Chart Look
         <Container>
             <SideLeft>
+                <h2>Relação</h2>
                 <LegendContainer>
-                    <Legend>
+                    <Legend color="#F7931B">
+                        <div>5%</div>
+                        <span>Entradas</span>
+                    </Legend>
+                    <Legend color="#E44C4E"> 
+                        <div>95%</div>
+                        <span>Sáidas</span>
+                    </Legend>
+                    <Legend color="#E44C4E"> 
+                        <div>95%</div>
+                        <span>Sáidas</span>
+                    </Legend>
+                    <Legend color="#E44C4E"> 
+                        <div>95%</div>
+                        <span>Sáidas</span>
+                    </Legend>
+                    <Legend color="#E44C4E"> 
                         <div>95%</div>
                         <span>Sáidas</span>
                     </Legend>
