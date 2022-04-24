@@ -2,7 +2,7 @@ import React, {useState, useMemo} from 'react'
 
 import ContentHeader from '../../components/ContentHeader';
 import MessageBox from '../../components/MensageBox'; //32. Creating the Wallet Status Card
-import PieChart from '../../components/PieChart'; //34. Creating the Pie Chart Look
+import PieChartBox from '../../components/PieChartBox'; //34. Creating the Pie Chart Look//35. Loading the pie chart with data
 import SelectInput from '../../components/SelectInput';
 import WalletBox from '../../components/WalletBox'; //31. Creating wallet movement cards
 
@@ -124,6 +124,31 @@ const Dashboard: React.FC = () => {
 
     },[totalBalance]);
 
+    const relationExpensesVersusGains = useMemo(() => { //35. Loading the pie chart with data
+        const total = totalGains + totalExpenses;
+
+        const percentGains = (totalGains * total) / 100;
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const percentExpenses = (totalGains * total) / 100;
+
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const data = [
+            {
+                name: 'Entradas',
+                value: totalExpenses,
+                percent: Number(percentGains.toFixed(1)), //35. Loading the pie chart with data
+                color: '#E44c4e'
+            },
+            {
+                name: 'Saidas',
+                value: totalExpenses,
+                percent: Number(percentGains.toFixed(1)), //35. Loading the pie chart with data
+                color: '#F7931b'
+            },
+        ]
+        return data; //35. Loading the pie chart with data
+    },[totalExpenses, totalGains]);
+
     const handleMonthSelected = (month: string) => { //30. Creating the dashboard content header
         try {
             const parseMonth = Number(month);
@@ -181,7 +206,7 @@ const Dashboard: React.FC = () => {
                 icon={message.icon}
             />
 
-            <PieChart/>
+            <PieChartBox data={relationExpensesVersusGains} />
             </Content>
         </Container>
 

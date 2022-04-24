@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'; //31. Creating wallet movement cards
-// import CountUp from 'react-countup'; //31. Creating wallet movement cards - COUNTUP ERROR
+import CountUp from 'react-countup'; //31. Creating wallet movement cards - COUNTUP ERROR
 
 import dolarImg from '../../assets/dolar.svg'; //31. Creating wallet movement cards
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -42,14 +42,13 @@ const WalletBox: React.FC <IWalletBoxProps> = ({ //31. Creating wallet movement 
         <Container color={color}>
             <span>{title}</span>
             <h1>
-                {amount}
-                {/* <CountUp  //31. Creating wallet movement cards - COUNTUP ERROR
+                <strong>R$ </strong>
+                <CountUp 
                     end={amount}
-                    prefix={"R$ "}
                     separator="."
                     decimal=","
-                    decimals={2}
-                    />     */}
+                    decimals={2}                                    
+                />
             </h1>
             <small>{footerlabel}</small>
             <img src={iconSelected} alt={title} />
