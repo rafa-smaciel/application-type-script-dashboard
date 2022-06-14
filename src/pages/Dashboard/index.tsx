@@ -5,6 +5,7 @@ import MessageBox from '../../components/MensageBox'; //32. Creating the Wallet 
 import PieChartBox from '../../components/PieChartBox'; //34. Creating the Pie Chart Look//35. Loading the pie chart with data
 import SelectInput from '../../components/SelectInput';
 import WalletBox from '../../components/WalletBox'; //31. Creating wallet movement cards
+import HistoryBox from '../../components/HistoryBox'; //36. Creating the Line Chart for the Balance Historian
 
 import expenses from '../../repositories/expenses';
 import gains from '../../repositories/gains';
@@ -207,6 +208,8 @@ const Dashboard: React.FC = () => {
             />
 
             <PieChartBox data={relationExpensesVersusGains} />
+
+            <HistoryBox />
             </Content>
         </Container>
 
